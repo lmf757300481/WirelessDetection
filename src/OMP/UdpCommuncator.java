@@ -9,12 +9,13 @@ import java.util.Arrays;
 
 public class UdpCommuncator{
 	
-	private DatagramSocket client = null;//new DatagramSocket(4010);	
+	private DatagramSocket client = new DatagramSocket(4010);	
 	private DatagramPacket packet_send = null;//new DatagramPacket(data_send, data_send.length,
 			//InetAddress.getByName("192.168.0.119"), 4010);
-	private DatagramPacket packet_recieve =null;// new DatagramPacket(container, container.length);	
+	private byte[] container = new byte[1024];
+	private DatagramPacket packet_recieve = new DatagramPacket(container, container.length);	
 	private byte[] command_send = new byte[4];
-	private byte[] container = new byte[1024];	
+		
 	private double peakWaveLength=0;	
 	
 	public UdpCommuncator(Command_OPM102L command) throws SocketException, IOException 
@@ -34,14 +35,14 @@ public class UdpCommuncator{
 	public UdpCommuncator() throws SocketException, IOException {
 		super();
 		// TODO Auto-generated constructor stub
-		this.client=new DatagramSocket(4010); 
-		Command_OPM102L command=Command_OPM102L.Start_Control_Get_Peak_WaveLength_And_Power;
-		command_send=Arrays.copyOf(command.getIndex(),command.getIndex().length);
-		System.out.println(Arrays.toString(command_send));		
-		packet_send = new DatagramPacket(command_send, command_send.length,
-				InetAddress.getByName("192.168.0.119"), 4010);	
-		packet_recieve= new DatagramPacket(container, container.length);
-		this.client.send(packet_send);
+	//	this.client=new DatagramSocket(4010); 
+	//	Command_OPM102L command=Command_OPM102L.Start_Control_Get_Peak_WaveLength_And_Power;
+	//	command_send=Arrays.copyOf(command.getIndex(),command.getIndex().length);
+	//	System.out.println(Arrays.toString(command_send));		
+	//	packet_send = new DatagramPacket(command_send, command_send.length,
+	//			InetAddress.getByName("192.168.0.119"), 4010);	
+	//	packet_recieve= new DatagramPacket(container, container.length);
+	//	this.client.send(packet_send);
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
@@ -73,12 +74,12 @@ public class UdpCommuncator{
 				InetAddress.getByName("192.168.0.119"), 4010);	
 		packet_recieve= new DatagramPacket(container, container.length);
 		this.client.send(packet_send);
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(500);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 	}
 	
